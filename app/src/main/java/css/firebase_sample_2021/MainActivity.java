@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         // setup firebase variables
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Item");
+        myRef = database.getReference("ITEM_STRINGS");
 
         editTextItem = findViewById(R.id.editTextItem);
         setupButtonPost();
@@ -63,15 +63,14 @@ public class MainActivity extends AppCompatActivity {
                 itemViewModel.clearItems();
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                //String value = dataSnapshot.child("CIS3334_ITEMS").getValue(String.class);
-                //String value = dataSnapshot.getValue(String.class);
                 Map<String, Object> mapItems = (Map<String, Object>) dataSnapshot.getValue();
                 Log.d("CIS 3334", "ans is: " + mapItems);
-                for (Object item : mapItems.values()) {
-                    Log.d("CIS 3334", "Item is: " + item);
-                    itemViewModel.addItem(item.toString());
+                if (mapItems != null) {
+                    for (Object item : mapItems.values()) {
+                        Log.d("CIS 3334", "Item is: " + item);
+                        itemViewModel.addItem(item.toString());
+                    }
                 }
-                //Log.d("CIS 3334", "Value is: " + value);
                 iItemRecycleViewAdapter.notifyDataSetChanged();
             }
 
